@@ -9,15 +9,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventOfCode.Puzzles", "src
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventOfCode.Common", "src\AdventOfCode.Common\AdventOfCode.Common.csproj", "{AFD376D2-546D-4130-A8B8-232D3DC23E1F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventOfCode.Puzzles.Tests", "AdventOfCode.Puzzles.Tests\AdventOfCode.Puzzles.Tests.csproj", "{6BEDF54D-F5F5-4FC5-BDA8-9CA7C27A34D9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventOfCode.Puzzles.Tests", "src\AdventOfCode.Puzzles.Tests\AdventOfCode.Puzzles.Tests.csproj", "{1D9BA91D-5C38-43E4-B1D0-430D0855B102}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{F4A6C47B-0F5F-450C-9AC4-066CCFAC47C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -32,9 +29,12 @@ Global
 		{AFD376D2-546D-4130-A8B8-232D3DC23E1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AFD376D2-546D-4130-A8B8-232D3DC23E1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AFD376D2-546D-4130-A8B8-232D3DC23E1F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6BEDF54D-F5F5-4FC5-BDA8-9CA7C27A34D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6BEDF54D-F5F5-4FC5-BDA8-9CA7C27A34D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6BEDF54D-F5F5-4FC5-BDA8-9CA7C27A34D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6BEDF54D-F5F5-4FC5-BDA8-9CA7C27A34D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D9BA91D-5C38-43E4-B1D0-430D0855B102}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D9BA91D-5C38-43E4-B1D0-430D0855B102}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D9BA91D-5C38-43E4-B1D0-430D0855B102}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D9BA91D-5C38-43E4-B1D0-430D0855B102}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal

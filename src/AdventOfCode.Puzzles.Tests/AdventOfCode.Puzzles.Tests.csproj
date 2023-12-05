@@ -24,8 +24,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\AdventOfCode.Common\AdventOfCode.Common.csproj" />
-    <ProjectReference Include="..\src\AdventOfCode.Puzzles\AdventOfCode.Puzzles.csproj" />
+    <ProjectReference Include="..\AdventOfCode.Common\AdventOfCode.Common.csproj" />
+    <ProjectReference Include="..\AdventOfCode.Puzzles\AdventOfCode.Puzzles.csproj" />
   </ItemGroup>
 
 </Project>
