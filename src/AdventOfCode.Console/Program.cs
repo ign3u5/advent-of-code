@@ -14,9 +14,11 @@ var assetOptions = configuration.GetSection(AssetsOptions.SectionName).Get<Asset
 ServiceCollection serviceCollection = new();
 
 serviceCollection.AddSingleton(assetOptions);
-serviceCollection.AddSingleton<AdventOfCode.Puzzles.TwentyThree.DayOne>();
-serviceCollection.AddSingleton<AdventOfCode.Puzzles.TwentyThree.DaySix>();
-serviceCollection.AddSingleton<IPuzzleRunner, PuzzleRunner>();
+
+serviceCollection.AddPuzzlesForTwentyThree();
+
+serviceCollection.AddTransient<IPuzzleRunner, PuzzleRunner>();
+
 serviceCollection.AddHttpClient<IPuzzleRetrievalService, PuzzleRetrievalService>(client =>
 {
     client.DefaultRequestHeaders.Add("Cookie", $"session={assetOptions.Session}");

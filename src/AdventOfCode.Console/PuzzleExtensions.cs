@@ -8,7 +8,7 @@ public static class PuzzleExtensions {
         return (year, day);
     }
 
-    static int GetYear(string year) => year switch {
+    private static int GetYear(string year) => year switch {
         "Fifteen" => 2015,
         "Sixteen" => 2016,
         "Seventeen" => 2017,
@@ -22,7 +22,7 @@ public static class PuzzleExtensions {
         _ => throw new InvalidOperationException($"Could not find puzzle type for year {year}"),
     };
 
-    static int GetDay(string day) => day switch {
+    private static int GetDay(string day) => day switch {
         "One" => 1,
         "Two" => 2,
         "Three" => 3,
