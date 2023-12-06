@@ -22,7 +22,7 @@ public class PuzzleRetrievalService : IPuzzleRetrievalService
         response.EnsureSuccessStatusCode();
 
         var content = await response.Content.ReadAsStringAsync();
-        return content.Split(Environment.NewLine);
+        return content.Split('\n');
     }
 
     private string GetPath(int year, int day) => _assetOptions.PuzzlePathPattern?

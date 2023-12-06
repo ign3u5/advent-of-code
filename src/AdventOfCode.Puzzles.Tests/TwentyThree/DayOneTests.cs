@@ -1,6 +1,8 @@
 using AdventOfCode.Puzzles.Tests;
 using AdventOfCode.Puzzles.TwentyThree;
 
+namespace AdventOfCode.Puzzles.Tests.TwentyThree;
+
 public class DayOneTests : BaseTests<DayOne>
 {
     private const string InputOne = """

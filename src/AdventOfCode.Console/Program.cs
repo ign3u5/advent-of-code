@@ -15,6 +15,7 @@ ServiceCollection serviceCollection = new();
 
 serviceCollection.AddSingleton(assetOptions);
 serviceCollection.AddSingleton<AdventOfCode.Puzzles.TwentyThree.DayOne>();
+serviceCollection.AddSingleton<AdventOfCode.Puzzles.TwentyThree.DaySix>();
 serviceCollection.AddSingleton<IPuzzleRunner, PuzzleRunner>();
 serviceCollection.AddHttpClient<IPuzzleRetrievalService, PuzzleRetrievalService>(client =>
 {
@@ -25,4 +26,4 @@ IServiceProvider service = serviceCollection.BuildServiceProvider();
 
 using IPuzzleRunner puzzleRunner = service.GetRequiredService<IPuzzleRunner>();
 
-await puzzleRunner.Run<AdventOfCode.Puzzles.TwentyThree.DayOne>();
+await puzzleRunner.Run<AdventOfCode.Puzzles.TwentyThree.DaySix>();
