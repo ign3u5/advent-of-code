@@ -69,24 +69,27 @@ public class DayThree : IPuzzle
                     currentNum += int.Parse(currentChar.ToString());
                 }
 
-                if (isLastChar)
-                {
-                    if (currentNumCounts)
-                    {
-                        total += currentNum;
-                    }
-
-                    currentNumCounts = false;
-                    currentNum = 0;
-
-                    continue;
-                }
+                UpdateIfLastChar();
 
                 void AddToCurrentNum(char c)
                 {
                     currentNum *= 10;
                     currentNum += int.Parse(c.ToString());
                     currentNumCounts = true;
+                    UpdateIfLastChar();
+                }
+
+                void UpdateIfLastChar() {
+                    if (isLastChar)
+                    {
+                        if (currentNumCounts)
+                        {
+                            total += currentNum;
+                        }
+
+                        currentNumCounts = false;
+                        currentNum = 0;
+                    }
                 }
             }
         }
