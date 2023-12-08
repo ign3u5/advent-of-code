@@ -27,7 +27,6 @@ public class DayEight : IPuzzle
 
         // Find the minimum number of steps (which could mean looping) before all paths reach their end node
         // e.g. if they were to reach their end in 5, 12, and 10 respectively, the minimum number of steps would be 60.
-        // The first would have to loop 12 times, the second 5 times, and the third 6 times.
         return nodeSteps.Aggregate(Maths.LowestCommonMultiple);
     }
 
