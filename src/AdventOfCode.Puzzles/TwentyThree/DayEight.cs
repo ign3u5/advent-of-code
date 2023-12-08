@@ -25,6 +25,9 @@ public class DayEight : IPuzzle
             isEndOfPath,
             instructions, nodes);
 
+        // Find the minimum number of steps (which could mean looping) before all paths reach their end node
+        // e.g. if they were to reach their end in 5, 12, and 10 respectively, the minimum number of steps would be 60.
+        // The first would have to loop 12 times, the second 5 times, and the third 6 times.
         return nodeSteps.Aggregate(Maths.LowestCommonMultiple);
     }
 
@@ -32,15 +35,14 @@ public class DayEight : IPuzzle
     {
         List<long> nodeSteps = [];
 
-        var startingNodeKeys = nodes.Keys.Where(isStartOfPath);
+        IEnumerable<string> startingNodeKeys = nodes.Keys.Where(isStartOfPath);
 
-        foreach (var startingNodeKey in startingNodeKeys)
+        foreach (string startingNodeKey in startingNodeKeys)
         {
-            bool reachedEnd = false;
             int stepsForNode = 0;
-            var nextNode = startingNodeKey;
+            string nextNode = startingNodeKey;
 
-            while (!reachedEnd)
+            while (!isEndOfPath(nextNode))
             {
                 char currentInstruction = lRInstructions[stepsForNode % lRInstructions.Length];
 
@@ -50,8 +52,6 @@ public class DayEight : IPuzzle
                     'R' => nodes[nextNode].R,
                     _ => throw new UnreachableException()
                 };
-
-                reachedEnd = isEndOfPath(nextNode);
 
                 stepsForNode++;
             }
