@@ -53,6 +53,18 @@ public class DayTenTests : BaseTests<DayTen>
     .L--J.L--J.
     ...........
     """;
+    
+    private const string PartTwoTestOne2 = """
+    ..........
+    .S------7.
+    .|F----7|.
+    .||....||.
+    .||....||.
+    .|L-7F-J|.
+    .|..||..|.
+    .L--JL--J.
+    ..........
+    """;
 
     private const string PartTwoTestTwo = """
     .F----7F7F7F7F-7....
@@ -82,6 +94,7 @@ public class DayTenTests : BaseTests<DayTen>
 
     [Theory]
     [InlineData(PartTwoTestOne, 4)]
+    [InlineData(PartTwoTestOne2, 4)]
     [InlineData(PartTwoTestTwo, 8)]
     [InlineData(PartTwoTestThree, 10)]
     public void RunTaskTwo(string input, int expected) => TaskTwo(input, expected);
