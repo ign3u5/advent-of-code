@@ -1,5 +1,6 @@
-using AdventOfCode.Puzzles.Tests;
 using AdventOfCode.Puzzles.TwentyThree;
+
+namespace AdventOfCode.Puzzles.Tests.TwentyThree;
 
 public class DayNineTests : BaseTests<DayNine>
 {
@@ -10,10 +11,10 @@ public class DayNineTests : BaseTests<DayNine>
     """;
 
     [Theory]
-    [InlineData(InputOne, 0)]
+    [InlineData(InputOne, 114)]
     public void RunTaskOne(string input, long expected) => TaskOne(input, expected);
 
     [Theory]
-    [InlineData(InputOne, 0)]
+    [InlineData(InputOne, 2)]
     public void RunTaskTwo(string input, long expected) => TaskTwo(input, expected);
 }

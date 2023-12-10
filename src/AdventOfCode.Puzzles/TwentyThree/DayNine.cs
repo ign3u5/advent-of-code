@@ -6,43 +6,52 @@ public class DayNine : IPuzzle
 {
     public object RunTaskOne(string[] inputLines)
     {
-        
-        foreach (string line in inputLines) {
-            List<long[]> oasisVals = [line.Split(' ', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries).Select(x => long.Parse(x)).ToArray()];
-
-            int oasisCompareDepth = 0;
-
-            long[] oasisCompare = oasisVals.Skip(oasisCompareDepth).First();
-            long currentCompare = oasisCompare[0];
-
-            long[] oasisNextCompare = new long[oasisCompare.Length - 1];
-
-            bool areAllZeros = true;
-            for (int oasisValNum = 1; oasisValNum < oasisCompare.Length; oasisValNum--) {
-                long oasisVal = oasisCompare[oasisValNum];
-
-                long difference = Math.Abs(currentCompare - oasisVal);
-                oasisNextCompare[oasisValNum - 1] = difference;
-
-                areAllZeros = areAllZeros && oasisCompare[oasisValNum - 1] == 0;
-                currentCompare = oasisVal;
-            }
-
-            if (areAllZeros) {
-                int diff = 0;
-
-                oasisVals.Reverse();
-                foreach (long[] differences in oasisVals) {
-                    differences[differences.Length]
-                }
-            }
-        }
-
-        return 0;
+        return GetTotal(inputLines, (curr, diff) => curr[^1] + diff);
     }
 
     public object RunTaskTwo(string[] inputLines)
     {
-        return 0;
+        return GetTotal(inputLines, (curr, diff) => curr[0] - diff);
+    }
+
+    private delegate long PredictionCalculator(long[] currPattern, long diff);
+
+    private long GetTotal(string[] inputLines, PredictionCalculator predictionCalculator)
+    {
+        long total = 0;
+        foreach (string line in inputLines)
+        {
+            List<long[]> oasisNetwork = [line.Split(' ', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries).Select(long.Parse).ToArray()];
+
+            int currentDepth = 0;
+
+            while (oasisNetwork[currentDepth].Any(x => x != 0))
+            {
+                oasisNetwork.Add(new long[oasisNetwork[currentDepth].Length - 1]);
+
+                long previousReading = oasisNetwork[currentDepth][0];
+
+                for (int measurementNum = 1; measurementNum < oasisNetwork[currentDepth].Length; measurementNum++)
+                {
+                    long diff = (previousReading - oasisNetwork[currentDepth][measurementNum]) * -1;
+
+                    oasisNetwork[currentDepth + 1][measurementNum - 1] = diff;
+                    previousReading = oasisNetwork[currentDepth][measurementNum];
+                }
+
+                currentDepth++;
+            }
+
+            long difference = 0;
+
+            for (int depth = currentDepth - 1; depth >= 0; depth--)
+            {
+                difference = predictionCalculator(oasisNetwork[depth], difference);
+            }
+
+            total += difference;
+        }
+
+        return total;
     }
 }
