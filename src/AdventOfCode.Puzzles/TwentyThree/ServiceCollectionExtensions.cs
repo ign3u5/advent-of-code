@@ -15,6 +15,7 @@ public static class ServiceCollectionExtensions
         services.AddTransient<DayEight>();
         services.AddTransient<DayNine>();
         services.AddTransient<DayTen>();
+        services.AddTransient<DayEleven>();
 
         return services;
     }
