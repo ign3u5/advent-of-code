@@ -28,6 +28,4 @@ IServiceProvider service = serviceCollection.BuildServiceProvider();
 
 using IPuzzleRunner puzzleRunner = service.GetRequiredService<IPuzzleRunner>();
 
-//865 answer too high
-//226 answer too low
 await puzzleRunner.Run<AdventOfCode.Puzzles.TwentyThree.DayTen>();
