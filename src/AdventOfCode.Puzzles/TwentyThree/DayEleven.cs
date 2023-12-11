@@ -1,5 +1,4 @@
-﻿using System.Dynamic;
-using AdventOfCode.Common;
+﻿using AdventOfCode.Common;
 
 namespace AdventOfCode.Puzzles.TwentyThree;
 
