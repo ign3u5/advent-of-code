@@ -1,95 +1,90 @@
 ﻿using AdventOfCode.Common;
-using System;
 
 namespace AdventOfCode.Puzzles.TwentyThree;
 using ContiguousElement = (int contH, string pattern);
 public class DayTwelve : IPuzzle
 {
-    //???.### 1,1,3
+    // ???.### 1,1,3
+
+    // .??..??...?### 1,1,3
+    // .??..
+
+    // ?#?#?#?#?#?#?#? 1,3,1,6
+    //   .###.#.######
+    // 
     public object RunTaskOne(string[] inputLines)
     {
+        long total = 0;
         foreach (var line in inputLines)
         {
             string[] puzzleParts = line.Split(' ', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
             int[] targetContiguousSizes = puzzleParts[1].Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries).Select(int.Parse).ToArray();
 
-            List<ContiguousElement> contiguousElements = [];
+            int qs = 0;
 
+            string pattern = puzzleParts[0];
 
-            int contiguousElementsCount = -1;
-            bool inContiguousElement = false;
-            bool inContiguousHash = false;
-
-            foreach (char c in puzzleParts[0])
+            for (int pNum = 0; pNum < pattern.Length; pNum++)
             {
-                if (c == '.' && inContiguousElement)
+                if (pattern[pNum] == '?')
                 {
-                    inContiguousElement = false;
-                    inContiguousHash = false;
+                    qs++;
+                }
+            }
 
-                    continue;
+            total += GetArrangements(0, new char[qs]);
+
+            long thing = total;
+
+            long GetArrangements(int currentQ, char[] currentSwap) {
+                if (currentQ != qs) {
+                    long total = 0;
+
+                    currentSwap[currentQ] = '#';
+                    total += GetArrangements(currentQ + 1, currentSwap);
+
+                    currentSwap[currentQ] = '.';
+                    total += GetArrangements(currentQ + 1, currentSwap);
+
+                    return total;
                 }
 
-                if (c == '#')
-                {
-                    if (!inContiguousElement)
-                    {
-                        inContiguousElement = true;
-                        inContiguousHash = true;
-                        contiguousElements.Add((1, "#"));
-                        contiguousElementsCount++;
+                string pattern = puzzleParts[0];
+                int qsIndex = 0;
+                int contiguousIndex = 0;
+                int currentHLength = 0;
 
-                        continue;
+                for (var i = 0; i < pattern.Length; i++)
+                {
+                    char patternChar = pattern[i];
+
+                    if (pattern[i] == '?')
+                    {
+                        patternChar = currentSwap[qsIndex];
+                        qsIndex++;
                     }
 
-                    var (elH, pat) = contiguousElements[contiguousElementsCount];
+                    if (patternChar == '#') {
+                        currentHLength++;
+
+                        continue;
+                    } 
                     
-                    contiguousElements[contiguousElementsCount] = (inContiguousHash ? elH + 1 : elH, $"{pat}#");
-
-                    continue;
-                }
-
-                if (c == '?')
-                {
-                    inContiguousHash = false;
-                    if (!inContiguousElement)
-                    {
-                        inContiguousElement = true;
-                        contiguousElements.Add((0, "?"));
-                        contiguousElementsCount++;
-
-                        continue;
+                    if (currentHLength == targetContiguousSizes[contiguousIndex]) {
+                        contiguousIndex++;
+                        currentHLength = 0;
+                    } else {
+                        return 0;
                     }
-
-                    var (elH, pat) = contiguousElements[contiguousElementsCount];
-                    contiguousElements[contiguousElementsCount] = (elH, $"{pat}?");
-                    continue;
                 }
+
+                return 1;
             }
+        }    
 
-            int elementNum = contiguousElements.Count - 1;
-
-            for (int tNum = targetContiguousSizes.Length - 1; tNum >= 0; tNum--)
-            {
-                for (int elNum = elementNum; elementNum >= 0; elNum--)
-                {
-                    // Skip any that aren't big enough and don't check again
-                    if (contiguousElements[elNum].pattern.Length < targetContiguousSizes[tNum])
-                    {
-                        elementNum--;
-                        
-                        continue;
-                    }
-
-
-                }
-            }
-
-            int thing = 0;
-        }
-
-        return 0;
+        return total;
     }
+
 
     public object RunTaskTwo(string[] inputLines)
     {
