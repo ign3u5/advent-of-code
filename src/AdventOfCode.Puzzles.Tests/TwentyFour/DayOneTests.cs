@@ -17,4 +17,8 @@ public class DayOneTests : BaseTests<DayOne>
     [Theory]
     [InlineData(InputOne, 11)]
     public void RunTaskOne(string input, int expected) => TaskOne(input, expected);
+
+    [Theory]
+    [InlineData(InputOne, 31)]
+    public void RunTaskTwo(string input, int expected) => TaskTwo(input, expected);
 }
