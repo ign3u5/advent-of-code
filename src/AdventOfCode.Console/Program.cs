@@ -29,4 +29,4 @@ IServiceProvider service = serviceCollection.BuildServiceProvider();
 
 using IPuzzleRunner puzzleRunner = service.GetRequiredService<IPuzzleRunner>();
 
-await puzzleRunner.Run<AdventOfCode.Puzzles.TwentyFour.DayOne>();
+await puzzleRunner.Run<AdventOfCode.Puzzles.TwentyFour.DayTwo>();

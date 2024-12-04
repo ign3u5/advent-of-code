@@ -25,6 +25,7 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddPuzzlesForTwentyFour(this IServiceCollection services)
     {
         services.AddTransient<TwentyFour.DayOne>();
+        services.AddTransient<TwentyFour.DayTwo>();
 
         return services;
     }
