@@ -1,5 +1,6 @@
 ﻿using AdventOfCode.Puzzles.TwentyThree;
 using Microsoft.Extensions.DependencyInjection;
+using TwentyFour = AdventOfCode.Puzzles.TwentyFour;
 
 public static class ServiceCollectionExtensions
 {
@@ -17,6 +18,13 @@ public static class ServiceCollectionExtensions
         services.AddTransient<DayTen>();
         services.AddTransient<DayEleven>();
         services.AddTransient<DayTwelve>();
+
+        return services;
+    }
+
+    public static IServiceCollection AddPuzzlesForTwentyFour(this IServiceCollection services)
+    {
+        services.AddTransient<TwentyFour.DayOne>();
 
         return services;
     }
