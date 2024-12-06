@@ -27,7 +27,8 @@ public class DayFive : IPuzzle
             if (isPageOrderingRules && (string.IsNullOrWhiteSpace(curLine) || curLine[2] == ','))
             {
                 isPageOrderingRules = false;
-                continue;
+
+                if (string.IsNullOrWhiteSpace(curLine)) continue;
             }
 
             if (isPageOrderingRules)
@@ -61,7 +62,7 @@ public class DayFive : IPuzzle
             count++;
             bool isValid = true;
 
-            List<bool[]> cannotComeNextCol = new List<bool[]>();
+            List<bool[]> cannotComeNextCol = [];
 
             for (int i = 0; i < nums.Length; i++)
             {
