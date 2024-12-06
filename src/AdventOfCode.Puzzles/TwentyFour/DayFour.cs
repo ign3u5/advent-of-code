@@ -18,90 +18,53 @@ public class DayFour : IPuzzle
                     continue;
                 }
 
-                bool couldFitEast = x < inputLines[y].Length - XMAS.Length;
-                bool couldFitSouth = y < inputLines.Length - XMAS.Length;
-                bool couldFitWest = x > XMAS.Length;
-                bool couldFitNorth = y > XMAS.Length;
+                bool couldFitEast = x < inputLines[y].Length - XMAS.Length + 1;
+                bool couldFitSouth = y < inputLines.Length - XMAS.Length + 1;
+                bool couldFitWest = x > XMAS.Length - 2;
+                bool couldFitNorth = y > XMAS.Length - 2;
 
-                if (couldFitSouth && couldFitEast)
-                {
-                    if (CheckDirection(inputLines, x, y, 1, 1)) xmasCount++;
-                }
+                (int xDir, int yDir, bool check)[] directionsToCheck = 
+                    [
+                        (1, 0, couldFitEast),
+                        (1, 1, couldFitSouth && couldFitEast),
+                        (0, 1, couldFitSouth),
+                        (-1, 1, couldFitSouth && couldFitWest),
+                        (-1, 0, couldFitWest),
+                        (-1, -1, couldFitNorth && couldFitWest),
+                        (0, -1, couldFitNorth),
+                        (1, -1, couldFitNorth && couldFitEast)
+                    ];
 
-                if (couldFitSouth && couldFitWest)
+                foreach (var (xDir, yDir, check) in directionsToCheck)
                 {
-                    if (CheckDirection(inputLines, x, y, -1, 1)) xmasCount++;
-                }
-                
-                if (couldFitNorth && couldFitWest)
-                {
-                    if (CheckDirection(inputLines, x, y, -1, -1)) xmasCount++;
-                }
-                
-                if (couldFitNorth && couldFitEast)
-                {
-                    if (CheckDirection(inputLines, x, y, 1, -1)) xmasCount++;
+                    if (check && CheckDirection(xDir, yDir)) xmasCount++;
                 }
 
-                // If could fit left to right
-                if (x < inputLines[y].Length - XMAS.Length)
+                bool CheckDirection(int xDir, int yDir)
                 {
-                    if (inputLines[y][(x+1)..(x+4)] == "MAS")
+                    int count = 1;
+                    bool isXmas = false;
+
+                    while (count < 4)
                     {
-                        xmasCount++;
-                    }
-                }
+                        char currentChar = inputLines[y + (count * yDir)][x + (count * xDir)];
+                        char checkChar = XMAS[count];
+                        if (currentChar != checkChar)
+                        {
+                            isXmas = false;
+                            break;
+                        }
 
-                // If could fit top to bottom
-                if (y < inputLines.Length - XMAS.Length)
-                {
-                    if (inputLines[(y + 1)..(y + 4)][x] == "MAS")
-                    {
-                        xmasCount++;
+                        count++;
+                        isXmas = true;
                     }
-                }
 
-                // If could fit right to left
-                if (x > XMAS.Length)
-                {
-                    if (inputLines[y][(x - 3)..x] == "SAM")
-                    {
-                        xmasCount++;
-                    }
-                }
-
-                // If could fit bottom to top
-                if (y > XMAS.Length)
-                {
-                    if (inputLines[(y - 3)..y][x] == "SAM")
-                    {
-                        xmasCount++;
-                    }
+                    return isXmas;
                 }
             }
         }
 
-        return 0;
-    }
-
-    private bool CheckDirection(string[] inputLines, int x, int y, int xDir, int yDir)
-    {
-        int count = 0;
-        bool isXmas = false;
-
-        while (count < 4)
-        {
-            count++;
-            if (inputLines[y + (count*yDir)][x + (count*xDir)] != XMAS[count])
-            {
-                isXmas = false;
-                break;
-            }
-
-            isXmas = true;
-        }
-
-        return isXmas;
+        return xmasCount;
     }
 
     public object RunTaskTwo(string[] inputLines)
