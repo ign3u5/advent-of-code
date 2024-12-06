@@ -69,6 +69,45 @@ public class DayFour : IPuzzle
 
     public object RunTaskTwo(string[] inputLines)
     {
-        return 0;
+        int xMasCount = 0;
+
+        const string MS = nameof(MS);
+
+        for (int y = 0; y < inputLines.Length; y++)
+        {
+            for (int x = 0; x < inputLines[y].Length; x++)
+            {
+                if (inputLines[y][x] != 'A')
+                {
+                    continue;
+                }
+
+                bool couldFit = x > 0 && y > 0 && x < inputLines[y].Length - 1 && y < inputLines.Length - 1;
+
+                if (couldFit)
+                {
+                    char ne = inputLines[y - 1][x + 1];
+
+                    if (!MS.Any(c => c == ne)) continue;
+
+                    char sw = inputLines[y + 1][x - 1];
+
+                    if (!MS.Any(c => c == sw) || sw == ne) continue;
+
+                    char nw = inputLines[y - 1][x - 1];
+
+                    if (!MS.Any(c => c == nw)) continue;
+
+                    char se = inputLines[y + 1][x + 1];
+
+                    if (!MS.Any(c => c == se) || se == nw) continue;
+
+                    xMasCount++;
+                }
+
+            }
+        }
+
+        return xMasCount;
     }
 }

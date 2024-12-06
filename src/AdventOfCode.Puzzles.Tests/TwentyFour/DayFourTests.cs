@@ -21,6 +21,6 @@ public class DayFourTests : BaseTests<DayFour>
     public void RunTaskOne(string input, int expected) => TaskOne(input, expected);
 
     [Theory]
-    [InlineData(InputOne, 48)]
+    [InlineData(InputOne, 9)]
     public void RunTaskTwo(string input, int expected) => TaskTwo(input, expected);
 }
