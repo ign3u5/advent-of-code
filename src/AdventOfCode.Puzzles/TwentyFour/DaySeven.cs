@@ -3,7 +3,13 @@
 namespace AdventOfCode.Puzzles.TwentyFour;
 public class DaySeven : IPuzzle
 {
-    public object RunTaskOne(string[] inputLines)
+    public object RunTaskOne(string[] inputLines) =>
+        Solve(inputLines, includeConcatinationOperator: false);
+
+    public object RunTaskTwo(string[] inputLines) =>
+        Solve(inputLines, includeConcatinationOperator: true);
+
+    private static (long[] testValues, long[][] inputValuesCol) ParseInput(string[] inputLines)
     {
         long[] testValues = new long[inputLines.Length];
         long[][] inputValuesCol = new long[inputLines.Length][];
@@ -19,61 +25,12 @@ public class DaySeven : IPuzzle
             inputValuesCol[i] = rawInputValues.Select(long.Parse).ToArray();
         }
 
-        long total = 0;
-
-        for (int i = 0; i < inputLines.Length; i++)
-        {
-            long testValue = testValues[i];
-            long[] inputValues = inputValuesCol[i];
-
-            List<long> aggregations = [inputValues[0] * inputValues[1], inputValues[0] + inputValues[1]];
-
-            if (aggregations.Any(l => l == testValue))
-            {
-                total += testValue;
-                continue;
-            }
-
-            for (int j = 2; j < inputValues.Length; j++)
-            {
-                List<long> tempAggregations = [];
-                foreach (long aggregation in aggregations)
-                {
-                    long mulAgg = aggregation * inputValues[j];
-                    long sumAgg = aggregation + inputValues[j];
-
-                    if (j == inputValues.Length - 1 && (mulAgg == testValue || sumAgg == testValue))
-                    {
-                        total += testValue;
-                        break;
-                    }
-
-                    if (mulAgg <= testValue) tempAggregations.Add(mulAgg);
-                    if (sumAgg <= testValue) tempAggregations.Add(sumAgg);
-                }
-
-                aggregations = tempAggregations;
-            }
-        }
-
-        return total;
+        return (testValues, inputValuesCol);
     }
 
-    public object RunTaskTwo(string[] inputLines)
+    private static long Solve(string[] inputLines, bool includeConcatinationOperator)
     {
-        long[] testValues = new long[inputLines.Length];
-        long[][] inputValuesCol = new long[inputLines.Length][];
-
-        for (int i = 0; i < inputLines.Length; i++)
-        {
-            string[] valueInputSplit = inputLines[i].Split(':', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
-
-            testValues[i] = long.Parse(valueInputSplit[0]);
-
-            string[] rawInputValues = valueInputSplit[1].Split(' ', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
-
-            inputValuesCol[i] = rawInputValues.Select(long.Parse).ToArray();
-        }
+        var (testValues, inputValuesCol) = ParseInput(inputLines);
 
         long total = 0;
 
