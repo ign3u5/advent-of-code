@@ -15,6 +15,7 @@ ServiceCollection serviceCollection = new();
 
 serviceCollection.AddSingleton(assetOptions);
 
+serviceCollection.AddPuzzlesForTwenty();
 serviceCollection.AddPuzzlesForTwentyThree();
 serviceCollection.AddPuzzlesForTwentyFour();
 
@@ -29,4 +30,4 @@ IServiceProvider service = serviceCollection.BuildServiceProvider();
 
 using IPuzzleRunner puzzleRunner = service.GetRequiredService<IPuzzleRunner>();
 
-await puzzleRunner.Run<AdventOfCode.Puzzles.TwentyFour.DaySeven>();
+await puzzleRunner.Run<AdventOfCode.Puzzles.Twenty.DayOne>();
