@@ -8,6 +8,7 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddPuzzlesForTwenty(this IServiceCollection services)
     {
         services.AddTransient<Twenty.DayOne>();
+        services.AddTransient<Twenty.DayTwo>();
 
         return services;
     }
