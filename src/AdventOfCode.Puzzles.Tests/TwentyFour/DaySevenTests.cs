@@ -20,6 +20,6 @@ public class DaySevenTests : BaseTests<DaySeven>
     public void RunTaskOne(string input, int expected) => TaskOne(input, expected);
 
     [Theory]
-    [InlineData(InputOne, 0)]
+    [InlineData(InputOne, 11387)]
     public void RunTaskTwo(string input, int expected) => TaskTwo(input, expected);
 }
