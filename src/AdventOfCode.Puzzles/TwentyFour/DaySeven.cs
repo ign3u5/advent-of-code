@@ -4,10 +4,10 @@ namespace AdventOfCode.Puzzles.TwentyFour;
 public class DaySeven : IPuzzle
 {
     public object RunTaskOne(string[] inputLines) =>
-        Solve(inputLines, includeConcatinationOperator: false);
+        Solve(inputLines, includeConcatenationOperator: false);
 
     public object RunTaskTwo(string[] inputLines) =>
-        Solve(inputLines, includeConcatinationOperator: true);
+        Solve(inputLines, includeConcatenationOperator: true);
 
     private static (long[] testValues, long[][] inputValuesCol) ParseInput(string[] inputLines)
     {
@@ -28,7 +28,7 @@ public class DaySeven : IPuzzle
         return (testValues, inputValuesCol);
     }
 
-    private static long Solve(string[] inputLines, bool includeConcatinationOperator)
+    private static long Solve(string[] inputLines, bool includeConcatenationOperator)
     {
         var (testValues, inputValuesCol) = ParseInput(inputLines);
 
@@ -39,7 +39,12 @@ public class DaySeven : IPuzzle
             long testValue = testValues[i];
             long[] inputValues = inputValuesCol[i];
 
-            List<long> aggregations = [inputValues[0] * inputValues[1], inputValues[0] + inputValues[1], (long)(inputValues[0] * Math.Pow(10, Math.Floor(Math.Log10(inputValues[1]) + 1)) + inputValues[1])];
+            List<long> aggregations = [inputValues[0] * inputValues[1], inputValues[0] + inputValues[1]];
+
+            if (includeConcatenationOperator)
+            {
+                aggregations.Add(GetConcatenated(inputValues[0], inputValues[1]));
+            }
 
             if (aggregations.Any(l => l == testValue))
             {
@@ -52,19 +57,15 @@ public class DaySeven : IPuzzle
                 List<long> tempAggregations = [];
                 foreach (long aggregation in aggregations)
                 {
-                    long mulAgg = aggregation * inputValues[j];
-                    long sumAgg = aggregation + inputValues[j];
-                    long conAgg = (long)(aggregation * Math.Pow(10, Math.Floor(Math.Log10(inputValues[j]) + 1)) + inputValues[j]);
+                    long[] aggs = GetAggregations(aggregation, inputValues[j]);
 
-                    if (j == inputValues.Length - 1 && (mulAgg == testValue || sumAgg == testValue || conAgg == testValue))
+                    if (j == inputValues.Length - 1 && aggs.Any(a => a == testValue))
                     {
                         total += testValue;
                         break;
                     }
 
-                    if (mulAgg <= testValue) tempAggregations.Add(mulAgg);
-                    if (sumAgg <= testValue) tempAggregations.Add(sumAgg);
-                    if (conAgg <= testValue) tempAggregations.Add(conAgg);
+                    tempAggregations.AddRange(aggs.Where(a => a <= testValue));
                 }
 
                 aggregations = tempAggregations;
@@ -72,5 +73,20 @@ public class DaySeven : IPuzzle
         }
 
         return total;
+
+        long[] GetAggregations(long aggregation, long currentVal)
+        {
+            long[] aggs = [aggregation * currentVal, aggregation + currentVal];
+
+            if (includeConcatenationOperator)
+            {
+                aggs = [.. aggs, GetConcatenated(aggregation, currentVal)];
+            }
+
+            return aggs;
+        }
+
+        static long GetConcatenated(long aggregation, long currentVal) =>
+            (long)(aggregation * Math.Pow(10, Math.Floor(Math.Log10(currentVal) + 1)) + currentVal);
     }
 }
