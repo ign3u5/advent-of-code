@@ -58,7 +58,7 @@ public class DayEight : IPuzzle
 
                     var (jX, jY) = antennaPointsList[j];
 
-                    var (dX, dY) = (iX = jX, iY = jY);
+                    var (dX, dY) = (iX - jX, iY - jY);
 
                     if (iX + dX == jX)
                     {
