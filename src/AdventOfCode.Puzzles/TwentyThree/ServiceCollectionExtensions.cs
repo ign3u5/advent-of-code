@@ -40,6 +40,7 @@ public static class ServiceCollectionExtensions
         services.AddTransient<TwentyFour.DayFive>();
         services.AddTransient<TwentyFour.DaySix>();
         services.AddTransient<TwentyFour.DaySeven>();
+        services.AddTransient<TwentyFour.DayEight>();
 
         return services;
     }
